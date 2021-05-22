@@ -4,7 +4,7 @@ session_start();
 $d_username="root"; //database username
 $d_password=""; //database password
 $d_host="localhost"; //database host name
-$d_database="namasteadventures"; //database name
+$d_database="jail"; //database name
 $con = new mysqli($d_host,$d_username,$d_password,$d_database);
 // Date Time Configrations
 $date = date_create();
