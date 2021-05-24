@@ -19,6 +19,10 @@
 
 ### May 24, 2021 -> (2)
 CREATE TABLE `jail`.`jailbarracks` ( `id` INT NOT NULL AUTO_INCREMENT , `jailId` INT NOT NULL , `barrackName` TEXT NULL DEFAULT NULL , `barrackLocation` TEXT NULL DEFAULT NULL , `totalCapacity` TEXT NOT NULL , `generatedAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , `enabled` INT NOT NULL DEFAULT '1' , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+CREATE TABLE `jail`.`lawyerdetails` ( `id` INT NOT NULL AUTO_INCREMENT , `firstName` TEXT NOT NULL , `lastName` TEXT NOT NULL , `emailAddress` TEXT NOT NULL , `phoneNumber` TEXT NOT NULL , `generatedAt` TIMESTAMP NULL DEFAULT NULL , `enabled` INT NOT NULL DEFAULT '1' , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+CREATE TABLE `jail`.`inmatedetails` ( `id` INT NOT NULL AUTO_INCREMENT , `jailId` INT NOT NULL , `lawyerId` INT NOT NULL , `firstName` TEXT NOT NULL , `lastName` TEXT NOT NULL , `phoneNumber` TEXT NOT NULL , `idProofNumber` TEXT NOT NULL , `addressLine1` TEXT NOT NULL , `addressLine2` TEXT NOT NULL , `cityID` INT NOT NULL , `stateID` INT NOT NULL , `countryID` INT NOT NULL , `alternatePhoneNumber` TEXT NOT NULL , `judgementDetails` TEXT NOT NULL , `duration` TEXT NOT NULL , `updatedAt` TIMESTAMP NULL DEFAULT NULL , `generatedAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , `enabled` INT NOT NULL DEFAULT '0' , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+ALTER TABLE `inmatedetails` ADD `barrackId` INT NOT NULL AFTER `lawyerId`;
+ALTER TABLE `inmatedetails` ADD `gender` TEXT NOT NULL AFTER `lastName`;
 
 ### May 22, 2021  -> (1)
 CREATE TABLE `jail`.`admindetails` ( `id` INT NOT NULL AUTO_INCREMENT , `firstName` TEXT NULL DEFAULT NULL , `lastName` TEXT NULL DEFAULT NULL , `emailAddress` TEXT NULL DEFAULT NULL , `phoneNumber` TEXT NULL DEFAULT NULL , `username` TEXT NULL DEFAULT NULL , `password` TEXT NULL DEFAULT NULL , `generatedAt` TIMESTAMP NULL DEFAULT NULL , `updatedAt` TIMESTAMP NULL DEFAULT NULL , `enabled` INT(1) NOT NULL DEFAULT '1' , PRIMARY KEY (`id`)) ENGINE = InnoDB;
