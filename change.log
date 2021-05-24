@@ -4,8 +4,8 @@
 ###    _______________________________________________________________    ###
 ###   | ID  | Date of Starting  | Full Name        | Roll             |   ###
 ###   |=====|===================|==================|==================|   ###
-###   |  1  | May 22, 2020      | Ansh Garg        | Developer        |   ###
-###   |  2  | May --, 2020      | Tarun Dixit      | Developer        |   ###
+###   |  1  | May 22, 2021      | Ansh Garg        | Developer        |   ###
+###   |  2  | May 24, 2021      | Tarun Dixit      | Developer        |   ###
 ###   |_____|___________________|__________________|__________________|   ###
 ###                                                                       ###
 #############################################################################
@@ -17,6 +17,9 @@
 #############################################################################
 #############################################################################
 
-### May 22, 2020  -> (1)
+### May 24, 2021 -> (2)
+CREATE TABLE `jail`.`jailbarracks` ( `id` INT NOT NULL AUTO_INCREMENT , `jailId` INT NOT NULL , `barrackName` TEXT NULL DEFAULT NULL , `barrackLocation` TEXT NULL DEFAULT NULL , `totalCapacity` TEXT NOT NULL , `generatedAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , `enabled` INT NOT NULL DEFAULT '1' , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+
+### May 22, 2021  -> (1)
 CREATE TABLE `jail`.`admindetails` ( `id` INT NOT NULL AUTO_INCREMENT , `firstName` TEXT NULL DEFAULT NULL , `lastName` TEXT NULL DEFAULT NULL , `emailAddress` TEXT NULL DEFAULT NULL , `phoneNumber` TEXT NULL DEFAULT NULL , `username` TEXT NULL DEFAULT NULL , `password` TEXT NULL DEFAULT NULL , `generatedAt` TIMESTAMP NULL DEFAULT NULL , `updatedAt` TIMESTAMP NULL DEFAULT NULL , `enabled` INT(1) NOT NULL DEFAULT '1' , PRIMARY KEY (`id`)) ENGINE = InnoDB;
 ALTER TABLE `admindetails` ADD `lastLoginAt` TIMESTAMP NULL AFTER `password`;
