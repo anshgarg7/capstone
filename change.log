@@ -17,6 +17,10 @@
 #############################################################################
 #############################################################################
 
+### May 25, 2021 -> (2)
+ALTER TABLE `lawyerdetails` CHANGE `generatedAt` `generatedAt` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP;
+ALTER TABLE `inmatedetails` CHANGE `enabled` `enabled` INT(11) NOT NULL DEFAULT '1';
+
 ### May 24, 2021 -> (2)
 CREATE TABLE `jail`.`jailbarracks` ( `id` INT NOT NULL AUTO_INCREMENT , `jailId` INT NOT NULL , `barrackName` TEXT NULL DEFAULT NULL , `barrackLocation` TEXT NULL DEFAULT NULL , `totalCapacity` TEXT NOT NULL , `generatedAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , `enabled` INT NOT NULL DEFAULT '1' , PRIMARY KEY (`id`)) ENGINE = InnoDB;
 CREATE TABLE `jail`.`lawyerdetails` ( `id` INT NOT NULL AUTO_INCREMENT , `firstName` TEXT NOT NULL , `lastName` TEXT NOT NULL , `emailAddress` TEXT NOT NULL , `phoneNumber` TEXT NOT NULL , `generatedAt` TIMESTAMP NULL DEFAULT NULL , `enabled` INT NOT NULL DEFAULT '1' , PRIMARY KEY (`id`)) ENGINE = InnoDB;

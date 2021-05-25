@@ -11,7 +11,7 @@ $addressLine2 = e_d('e', $_POST["addressLine2"]);
 $cityId = $_POST["cityID"];
 $stateId = $_POST["stateID"];
 $countryId = $_POST["countryID"];
-$alternatePhone = $_POST["alternatePhoneNumber"];
+$alternatePhone = e_d('e', $_POST["alternatePhoneNumber"]);
 
 $lawyerFirstName = e_d('e', $_POST["lawyerFirstName"]);
 $lawyerLastName = e_d('e', $_POST["lawyerLastName"]);
