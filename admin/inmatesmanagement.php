@@ -59,13 +59,28 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1.</td>
-                                    <td>Test test</td>
-                                    <td>12345</td>
-                                    <td>Barrack 001, Ground Floor</td>
-                                    <td> <a href="inmateDetails.php?id=1" class="btn btn-primary">View Details</a> </td>
-                                </tr>
+                                <?php
+                                $jailId = 1;
+                                $inmates = getThis("SELECT `id`, `barrackId`, `firstName`, `lastName`, `idProofNumber` FROM `inmatedetails` WHERE `jailId`='$jailId'");
+                                for ($i = 0; $i < sizeof($inmates); $i++) {
+                                ?>
+                                    <tr>
+                                        <td><?php echo $i + 1; ?></td>
+                                        <td><?php echo e_d('d', $inmates[$i]['firstName']) . " " . e_d('d', $inmates[$i]['lastName']); ?></td>
+                                        <td><?php echo e_d('d', $inmates[$i]['idProofNumber']); ?></td>
+                                        <td>
+                                            <?php
+                                            $barrackId = $inmates[$i]['barrackId'];
+                                            $barracks = getThis("SELECT `barrackName` FROM `jailbarracks` WHERE `id`='$barrackId'");
+                                            $barracks = $barracks[0]['barrackName'];
+                                            echo e_d('d', $barracks);
+                                            ?>
+                                        </td>
+                                        <td> <a href="inmateDetails.php?id=<?php echo e_d('e', $inmates[$i]['id']); ?>" class="btn btn-primary">View Details</a> </td>
+                                    </tr>
+                                <?php
+                                }
+                                ?>
                             </tbody>
                         </table>
                     </div>
