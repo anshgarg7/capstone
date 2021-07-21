@@ -3,9 +3,9 @@ include "../fxn.php";
 $emailAddress = e_d('e', $_POST["emailAddress"]);
 $password = e_d('e', $_POST["password"]);
 $login = getThis("SELECT * FROM `admindetails` WHERE `emailAddress`='$emailAddress' AND `password`='$password' AND `enabled`='1'");
-$login = $login[0];
 
-if (isset($login["id"])) {
+if (sizeof($login) > 0) {
+  $login = $login[0];
   $id = $login["id"];
   $_SESSION["UID"] = $login["id"];
   $_SESSION["emailAddress"] = $login["emailAddress"];
@@ -14,10 +14,10 @@ if (isset($login["id"])) {
   $_SESSION["lastName"] = $login["lastName"];
   doThis("UPDATE `admindetails` SET `lastLoginAt`=CURRENT_TIMESTAMP() WHERE `id`='$id'");
 ?>
-    <script type="text/javascript">
-      window.location = '../../index.php';
-    </script>
-  <?php
+  <script type="text/javascript">
+    window.location = '../../index.php';
+  </script>
+<?php
 } else {
 ?>
   <script type="text/javascript">
