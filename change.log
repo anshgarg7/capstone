@@ -17,6 +17,12 @@
 #############################################################################
 #############################################################################
 
+### July 24, 2021 -> (2)
+CREATE TABLE `bailmanagement` ( `id` INT NOT NULL AUTO_INCREMENT , `jailID` INT NOT NULL , `inmateID` INT NOT NULL , `orderID` INT NOT NULL , `approvalDate` TEXT NOT NULL , `generatedAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , `enabled` INT NOT NULL DEFAULT '1' , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+
+### July 24, 2021 -> (2)
+ALTER TABLE `parolemanagement` CHANGE `dateOfParole` `dateOfParole` TEXT NULL DEFAULT NULL;
+
 ### July 21, 2021 -> (2)
 CREATE TABLE `jail`.`parolemanagement` ( `id` INT NOT NULL AUTO_INCREMENT , `inmateID` INT NOT NULL , `dateOfParole` DATETIME NULL DEFAULT NULL , `durationOfParole` TEXT NOT NULL , `paroleRequestStatus` INT NOT NULL DEFAULT '0' , `generatedAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP , `updatedAt` DATETIME NULL DEFAULT NULL , `enabled` INT NOT NULL DEFAULT '1' , PRIMARY KEY (`id`)) ENGINE = InnoDB;
 ALTER TABLE `parolemanagement` ADD `jailID` INT NOT NULL AFTER `inmateID`;
