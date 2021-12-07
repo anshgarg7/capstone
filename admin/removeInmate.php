@@ -18,17 +18,7 @@
     </div>
 
     <section class="content">
-        <div class="container-fluid">
-            <!-- Small boxes (Stat box) -->
-            <div class="row">
-                <a href="addNewInmate.php" class="btn btn-block btn-success">Register New Inmate</a>
-                <a href="removeInmate.php" class="btn btn-block btn-success">Remove Inmate</a>
-                <a href="inmateMovement.php" class="btn btn-block btn-success">Inmate Movement</a>
-                <a href="#" class="btn btn-block btn-success">Inmate Transfer</a>
-
-            </div>
-        </div>
-        <br><br>
+      
         <div class="row">
             <!-- /.col -->
             <div class="col-md-12">
@@ -76,7 +66,7 @@
                                             echo e_d('d', $barracks);
                                             ?>
                                         </td>
-                                        <td> <a href="inmateDetails.php?id=<?php echo e_d('e', $inmates[$i]['id']); ?>" class="btn btn-primary">View Details</a> </td>
+                                        <td> <a href="inmateDetails.php?id=<?php echo e_d('e', $inmates[$i]['id']); ?>" class="btn btn-primary">Remove</a> </td>
                                     </tr>
                                 <?php
                                 }
