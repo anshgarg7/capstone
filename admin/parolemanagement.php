@@ -75,7 +75,7 @@
                                         <td><?php echo e_d('d', $inmateDetails['idProofNumber']); ?></td>
                                         <td><?php echo  e_d('d', $inmate['dateOfParole']); ?></td>
                                         <td><?php echo e_d('d', $inmate['durationOfParole']); ?></td>
-                                        <td><a href="#" class="btn btn-primary">View Details</a></td>
+                                        <td><a href="inmateDetails.php?id=<?php echo e_d('e',$inmateID);?>" class="btn btn-primary">View Details</a></td>
                                     </tr>
                                 <?php
                                 }
