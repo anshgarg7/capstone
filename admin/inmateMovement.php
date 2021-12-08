@@ -68,6 +68,10 @@
                                     <div class="col-md-12 form-group">
                                         <select class="form-control" name="inmateID"  required>
                                             <option disabled selected>From</option>
+                                            <option value="0">Location 1</option>
+                                            <option value="0">Location 2</option>
+                                            <option value="0">Location 3</option>
+                                            <option value="0">Location 4</option>
                                         </select>
                                     </div>
                                 </div>
@@ -76,6 +80,11 @@
                                     <div class="col-md-12 form-group">
                                         <select class="form-control" name="inmateID"  required>
                                             <option disabled selected>To</option>
+                                            <option value="0">Location 1</option>
+                                            <option value="0">Location 2</option>
+                                            <option value="0">Location 3</option>
+                                            <option value="0">Location 4</option>
+
                                         </select>
                                     </div>
                                 </div>
