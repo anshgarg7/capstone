@@ -123,7 +123,14 @@ $result = $result[0];
                 </p>
               </a>
             </li>
-          
+            <li class="nav-item">
+              <a href="locationmanagement.php" class="nav-link">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                  Location Management
+                </p>
+              </a>
+            </li>
            
             
            
