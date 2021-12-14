@@ -51,7 +51,7 @@
                             <tbody>
                                 <?php
                                 $jailId = 1;
-                                $inmates = getThis("SELECT `id`, `barrackId`, `firstName`, `lastName`, `idProofNumber` FROM `inmatedetails` WHERE `jailId`='$jailId'");
+                                $inmates = getThis("SELECT `id`, `barrackId`, `firstName`, `lastName`, `idProofNumber` FROM `inmatedetails` WHERE `jailId`='$jailId' AND `enabled`='1'");
                                 for ($i = 0; $i < sizeof($inmates); $i++) {
                                 ?>
                                     <tr>
@@ -66,7 +66,7 @@
                                             echo e_d('d', $barracks);
                                             ?>
                                         </td>
-                                        <td> <a href="inmateDetails.php?id=<?php echo e_d('e', $inmates[$i]['id']); ?>" class="btn btn-primary">Remove</a> </td>
+                                        <td> <a href="assets/functionality/removeInmateAct.php?id=<?php echo e_d('e', $inmates[$i]['id']); ?>" class="btn btn-primary">Remove</a> </td>
                                     </tr>
                                 <?php
                                 }

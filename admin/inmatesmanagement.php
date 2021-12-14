@@ -23,8 +23,8 @@
             <div class="row">
                 <a href="addNewInmate.php" class="btn btn-block btn-success">Register New Inmate</a>
                 <a href="removeInmate.php" class="btn btn-block btn-success">Remove Inmate</a>
-                <a href="inmateMovement.php" class="btn btn-block btn-success">Inmate Movement</a>
-                <a href="#" class="btn btn-block btn-success">Inmate Transfer</a>
+                <!-- <a href="inmateMovement.php" class="btn btn-block btn-success">Inmate Movement</a> -->
+                <!-- <a href="#" class="btn btn-block btn-success">Inmate Transfer</a> -->
 
             </div>
         </div>
@@ -61,7 +61,7 @@
                             <tbody>
                                 <?php
                                 $jailId = 1;
-                                $inmates = getThis("SELECT `id`, `barrackId`, `firstName`, `lastName`, `idProofNumber` FROM `inmatedetails` WHERE `jailId`='$jailId'");
+                                $inmates = getThis("SELECT `id`, `barrackId`, `firstName`, `lastName`, `idProofNumber` FROM `inmatedetails` WHERE `jailId`='$jailId' AND `enabled`='1'");
                                 for ($i = 0; $i < sizeof($inmates); $i++) {
                                 ?>
                                     <tr>

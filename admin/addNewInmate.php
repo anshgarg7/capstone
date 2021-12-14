@@ -67,7 +67,7 @@
                                             $barracks = getThis("SELECT `id`, `barrackName`, `barrackLocation`, `totalCapacity` FROM `jailbarracks` WHERE `jailId`='$jailId' AND `enabled`='1'");
                                             for ($i = 0; $i < sizeof($barracks); $i++) {
                                                 $barrackId = $barracks[$i]['id'];
-                                                $temp = getThis("SELECT COUNT(`id`) FROM `inmatedetails` WHERE `barrackId`='$barrackId'");
+                                                $temp = getThis("SELECT COUNT(`id`) FROM `inmatedetails` WHERE `barrackId`='$barrackId' AND `enabled`='1'");
                                                 $temp = (int)$temp[0]['COUNT(`id`)'];
                                                 $size = (int)e_d('d', $barracks[$i]['totalCapacity']);
                                                 $temp = $size - $temp;
