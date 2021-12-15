@@ -33,7 +33,7 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Source</label>
-                                    <select name="destination" class="form-control">
+                                    <select name="source" class="form-control">
                                         <option value="0" selected>Select Source</option>
                                         <?php 
                                             $options = getThis("SELECT `id`,`name` FROM `locationdetails` WHERE `jailId`='1'");
@@ -93,6 +93,80 @@
                     </div>
                 </div>
             </div>
+
+            <div class="row">
+            <!-- /.col -->
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">All Routes</h3>
+
+                        <div class="card-tools">
+                            <ul class="pagination pagination-sm float-right">
+                                <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body p-0">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 10px">#</th>
+                                    <th>Source</th>
+                                    <th>Destination</th>
+                                    <th>Camera Map</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $maps = getThis("SELECT `sourceId`, `destinationId`, `camera` FROM `routecameramap`");
+                                for ($i = 0; $i < sizeof($maps); $i++) {
+                                ?>
+                                    <tr>
+                                        <td><?php echo $i + 1; ?></td>
+                                        <td><?php $sourceId = $maps[$i]['sourceId'];
+                                            $name = getThis("SELECT `name` FROM `locationdetails` WHERE `id`='$sourceId'");
+                                            $name = $name[0]['name'];
+                                            echo e_d('d', $name);
+                                        ?></td>
+                                        <td><?php $destinationId = $maps[$i]['destinationId'];
+                                            $name = getThis("SELECT `name` FROM `locationdetails` WHERE `id`='$destinationId'");
+                                            $name = $name[0]['name'];
+                                            echo e_d('d', $name);
+                                        ?></td>
+                                        <td>
+                                            <?php
+                                            $cameraArr = $maps[$i]['camera'];
+                                            $cameraArr = e_d('d', $cameraArr);
+                                            $camera = unserialize($cameraArr);
+
+                                            for($x=0;$x<sizeof($camera); $x++)
+                                            {
+                                                echo "Camera ".$camera[$x];
+                                                echo ", ";
+                                            }
+                                            
+                                            ?>
+                                        </td>
+                                        </tr>
+                                <?php
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+
+        </div>
+
         </div>
     </section>
 
