@@ -7,9 +7,14 @@ app = Flask(__name__)
 
 
 @app.route('/', methods=['GET', 'POST'])
-def face_rec():
+def get_data():
     name = request.args.get("name")
     ref_id = request.args.get("ref_id")
+    temp = face_rec(name,ref_id)
+    return temp
+
+def face_rec(name, ref_id):
+
 	try:
 		f=open("ref_name.pkl","rb")
 
@@ -69,6 +74,6 @@ def face_rec():
 	f=open("ref_embed.pkl","wb")
 	pickle.dump(embed_dictt,f)
 	f.close()
-	return "hello"
+	return name
 if __name__ == "__main__":
     app.run()
