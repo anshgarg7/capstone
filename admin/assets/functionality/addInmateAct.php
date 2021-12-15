@@ -22,7 +22,7 @@ $duration = e_d('e', $_POST["duration"]);
 $judgementDetails = e_d('e', $_POST["judgementDetails"]);
 
 $lawyerId = doThis("INSERT INTO `lawyerdetails`(`firstName`, `lastName`, `emailAddress`, `phoneNumber`) VALUES ('$lawyerFirstName', '$lawyerLastName', '$lawyerEmailAddress', '$lawyerContactNumber')");
-$res = doThis("INSERT INTO `inmatedetails`(`jailId`, `lawyerId`, `barrackId`, `firstName`, `lastName`, `gender`, `phoneNumber`, `idProofNumber`, `addressLine1`, `addressLine2`, `cityID`, `stateID`, `countryID`, `alternatePhoneNumber`, `judgementDetails`, `duration`) VALUES ('$jailId', '$lawyerId', '$barrackId', '$firstName', '$lastName', '$gender', '$phoneNumber', '$idProofNumber', '$addressLine1', '$addressLine2', '$cityId', '$stateId', '$countryId', '$alternatePhone', '$judgementDetails', '$duration')");
+$res = doThis("INSERT INTO `inmatedetails`(`jailId`, `lawyerId`, `barrackId`, `firstName`, `lastName`, `gender`, `phoneNumber`, `idProofNumber`, `addressLine1`, `addressLine2`, `cityID`, `stateID`, `countryID`, `alternatePhoneNumber`, `judgementDetails`, `duration`,`enabled`) VALUES ('$jailId', '$lawyerId', '$barrackId', '$firstName', '$lastName', '$gender', '$phoneNumber', '$idProofNumber', '$addressLine1', '$addressLine2', '$cityId', '$stateId', '$countryId', '$alternatePhone', '$judgementDetails', '$duration','2')");
 
 
 if ($res) {

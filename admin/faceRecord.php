@@ -18,17 +18,7 @@
     </div>
 
     <section class="content">
-        <div class="container-fluid">
-            <!-- Small boxes (Stat box) -->
-            <div class="row">
-                <a href="addNewInmate.php" class="btn btn-block btn-success">Register New Inmate</a>
-                <a href="removeInmate.php" class="btn btn-block btn-success">Remove Inmate</a>
-                <!-- <a href="inmateMovement.php" class="btn btn-block btn-success">Inmate Movement</a> -->
-                <a href="faceRecord.php" class="btn btn-block btn-success">Inmate Face Record</a>
-
-            </div>
-        </div>
-        <br><br>
+      
         <div class="row">
             <!-- /.col -->
             <div class="col-md-12">
@@ -61,7 +51,7 @@
                             <tbody>
                                 <?php
                                 $jailId = 1;
-                                $inmates = getThis("SELECT `id`, `barrackId`, `firstName`, `lastName`, `idProofNumber` FROM `inmatedetails` WHERE `jailId`='$jailId' AND (`enabled`='1' OR `enabled`='2')");
+                                $inmates = getThis("SELECT `id`, `barrackId`, `firstName`, `lastName`, `idProofNumber` FROM `inmatedetails` WHERE `jailId`='$jailId' AND `enabled`='2'");
                                 for ($i = 0; $i < sizeof($inmates); $i++) {
                                 ?>
                                     <tr>
@@ -76,7 +66,7 @@
                                             echo e_d('d', $barracks);
                                             ?>
                                         </td>
-                                        <td> <a href="inmateDetails.php?id=<?php echo e_d('e', $inmates[$i]['id']); ?>" class="btn btn-primary">View Details</a> </td>
+                                        <td> <a href="#id=<?php echo e_d('e', $inmates[$i]['id']); ?>" class="btn btn-primary">Record Face</a> </td>
                                     </tr>
                                 <?php
                                 }
