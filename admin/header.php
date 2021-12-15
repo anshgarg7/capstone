@@ -131,7 +131,14 @@ $result = $result[0];
                 </p>
               </a>
             </li>
-           
+            <li class="nav-item">
+              <a href="routemanagement.php" class="nav-link">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                  Route Management
+                </p>
+              </a>
+            </li>
             
            
             

@@ -1,4 +1,6 @@
-<?php include "header.php"; ?>
+<?php include "header.php"; 
+$inmateId = $_GET["id"];
+?>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
    <br><br>
@@ -11,11 +13,11 @@
                     <!-- general form elements -->
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Request New Permission</h3>
+                            <h3 class="card-title">Request New Route</h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form action="assets/functionality/addBarrackAct.php" method="POST">
+                        <form action="assets/functionality/addRouteAct.php" method="POST">
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Location Name/Number</label>
@@ -41,6 +43,7 @@
                                 </div>
                                 
                             </div>
+                            <input type="hidden" name="inmateId" value="<?php echo $inmateId; ?>">
                             <!-- /.card-body -->
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary btn-block">Submit</button>
