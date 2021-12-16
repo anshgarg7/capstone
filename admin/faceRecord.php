@@ -66,7 +66,7 @@
                                             echo e_d('d', $barracks);
                                             ?>
                                         </td>
-                                        <td> <a href="http://127.0.0.1:5000/?name=<?php echo e_d('d', $inmates[$i]['firstName'])." ".e_d('d', $inmates[$i]['lastName']); ?>&ref_id=<?php echo $inmates[$i]['id']; ?>" class="btn btn-primary">Record Face</a> </td>
+                                        <td> <a href="http://127.0.0.1:5000/encode?name=<?php echo e_d('d', $inmates[$i]['firstName'])." ".e_d('d', $inmates[$i]['lastName']); ?>&ref_id=<?php echo $inmates[$i]['id']; ?>" class="btn btn-primary">Record Face</a> </td>
                                     </tr>
                                 <?php
                                 }
