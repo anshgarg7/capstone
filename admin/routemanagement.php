@@ -71,19 +71,12 @@
                                         ?>
                                     </select>
                                 </div>
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Camera Map</label> <br>
-                                    <input type="checkbox" name="camera[]" value="1">
-                                    <label for="vehicle1">Camera 1</label><br>
-                                    <input type="checkbox" name="camera[]" value="2">
-                                    <label for="vehicle1">Camera 2</label><br>
-                                    <input type="checkbox" name="camera[]" value="3">
-                                    <label for="vehicle1">Camera 3</label><br>
-                                    <input type="checkbox" name="camera[]" value="4">
-                                    <label for="vehicle1">Camera 4</label><br>
-                                    <input type="checkbox" name="camera[]" value="5">
-                                    <label for="vehicle1">Camera 5</label><br>
-                                </div>
+                                <table class="table " id="dynamic_field">
+                                          <tr>
+                                            <td><input type="text" name="camera[]" placeholder="Enter camera names in serial order from start to end" class="form-control name_list" /></td>
+                                            <td><button type="button" name="add" id="add" class="mt-2 btn btn-primary">Add More</button></td>
+                                          </tr>
+                                        </table>
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer">
@@ -152,6 +145,7 @@
                                             }
                                             
                                             ?>
+
                                         </td>
                                         </tr>
                                 <?php
@@ -172,3 +166,21 @@
 
 </div>
 <?php include "footer.php"; ?>
+
+
+
+
+<script>
+$(document).ready(function(){
+	var i=1;
+	$('#add').click(function(){
+		i++;
+		$('#dynamic_field').append('<tr id="row'+i+'"><td><input type="text" name="camera[]" placeholder="Enter camera names in serial order from start to end" class="form-control name_list" /></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');
+	});
+
+    $(document).on('click', '.btn_remove', function(){
+		var button_id = $(this).attr("id");
+		$('#row'+button_id+'').remove();
+	});
+});
+</script>
