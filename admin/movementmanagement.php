@@ -53,13 +53,13 @@
                             <tbody>
                                 <?php
                                 $moves = getThis("SELECT `id`, `sourceId`, `destinationId`, `inmateId`, `generatedAt`,`enabled` FROM `routes` ORDER BY `generatedAt` DESC");
-                                for($i=0;$i<sizeof($moves); $i++)
+                                for($p=0;$p<sizeof($moves); $p++)
                                 {
-                                    $move = $moves[$i];
+                                    $move = $moves[$p];
                                     ?>
                                     <tr>
                                         <td>
-                                            <?php echo $i+1; ?>
+                                            <?php echo $p+1; ?>
                                         </td>
                                        <td>
                                            <?php 

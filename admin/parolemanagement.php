@@ -21,9 +21,12 @@
         <div class="container-fluid">
             <!-- Small boxes (Stat box) -->
             <div class="row">
+            <div class="col-md-6">
                 <a href="#" class="btn btn-block btn-success">Pending Parole Requests</a>
-                <a href="createNewParole.php" class="btn btn-block btn-success">Create New Parole Entry</a>
-
+            </div>
+            <div class="col-md-6">
+            <a href="createNewParole.php" class="btn btn-block btn-success">Create New Parole Entry</a>
+</div>
             </div>
         </div>
         <br><br>

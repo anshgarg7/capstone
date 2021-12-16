@@ -21,11 +21,16 @@
         <div class="container-fluid">
             <!-- Small boxes (Stat box) -->
             <div class="row">
+                <div class="col-md-4">
                 <a href="addNewInmate.php" class="btn btn-block btn-success">Register New Inmate</a>
+                </div>
+                <div class="col-md-4">
                 <a href="removeInmate.php" class="btn btn-block btn-success">Remove Inmate</a>
+                </div>
                 <!-- <a href="inmateMovement.php" class="btn btn-block btn-success">Inmate Movement</a> -->
+                <div class="col-md-4">
                 <a href="faceRecord.php" class="btn btn-block btn-success">Inmate Face Record</a>
-
+</div>
             </div>
         </div>
         <br><br>
