@@ -66,6 +66,30 @@
                                             echo e_d('d', $barracks);
                                             ?>
                                         </td>
+                                        <td> <a href="http://127.0.0.1:5000/encode?name=<?php echo e_d('d', $inmates[$i]['firstName'])." ".e_d('d', $inmates[$i]['lastName']); ?>&ref_id=<?php echo $inmates[$i]['id']; ?>" class="btn btn-success">Record Face</a> </td>
+                                    </tr>
+                                <?php
+                                }
+                                ?>
+
+
+                                <?php
+                                $jailId = 1;
+                                $inmates = getThis("SELECT `id`, `barrackId`, `firstName`, `lastName`, `idProofNumber` FROM `inmatedetails` WHERE `jailId`='$jailId' AND `enabled`='1'");
+                                for ($i = 0; $i < sizeof($inmates); $i++) {
+                                ?>
+                                    <tr>
+                                        <td><?php echo $i + 1; ?></td>
+                                        <td><?php echo e_d('d', $inmates[$i]['firstName']) . " " . e_d('d', $inmates[$i]['lastName']); ?></td>
+                                        <td><?php echo e_d('d', $inmates[$i]['idProofNumber']); ?></td>
+                                        <td>
+                                            <?php
+                                            $barrackId = $inmates[$i]['barrackId'];
+                                            $barracks = getThis("SELECT `barrackName` FROM `jailbarracks` WHERE `id`='$barrackId'");
+                                            $barracks = $barracks[0]['barrackName'];
+                                            echo e_d('d', $barracks);
+                                            ?>
+                                        </td>
                                         <td> <a href="http://127.0.0.1:5000/encode?name=<?php echo e_d('d', $inmates[$i]['firstName'])." ".e_d('d', $inmates[$i]['lastName']); ?>&ref_id=<?php echo $inmates[$i]['id']; ?>" class="btn btn-primary">Record Face</a> </td>
                                     </tr>
                                 <?php

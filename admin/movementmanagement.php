@@ -137,7 +137,10 @@
                                             echo "In movement. Last recorded at camera number: ".array_key_last($routeArr);
                                         }
                                         else{
-                                            echo "Alert!! Time exceeded. Last recorded at camera number: ".array_key_last($routeArr)." at time: ".$routeArr[array_key_last($routeArr)];
+                                            ?>
+                                            <button class="btn btn-danger" disabled>Alert</button>
+                                            <?php
+                                            echo "Time exceeded. Last recorded at camera number: ".array_key_last($routeArr)." at time: ".$routeArr[array_key_last($routeArr)];
                                         }
                                     }
 

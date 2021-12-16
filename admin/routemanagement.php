@@ -135,7 +135,7 @@
                                         <td>
                                             <?php
                                             $cameraArr = $maps[$i]['camera'];
-                                            $cameraArr = e_d('d', $cameraArr);
+                                            // $cameraArr = e_d('d', $cameraArr);
                                             $camera = unserialize($cameraArr);
 
                                             for($x=0;$x<sizeof($camera); $x++)
