@@ -10,6 +10,7 @@ import time
 import csv
 from datetime import datetime
 import mysql.connector
+import json
 mydb = mysql.connector.connect(
   host="localhost",
   user="root",
@@ -46,7 +47,7 @@ def route_rec():
 
 	#############################################################frame capturing from camera and face recognition
 	video_capture1 = cv2.VideoCapture(0)
-	# video_capture2 = cv2.VideoCapture(1)
+	video_capture2 = cv2.VideoCapture(1)
 
 	# Initialize some variables
 	face_locations = []
@@ -57,23 +58,23 @@ def route_rec():
 	while True  :
 		# Grab a single frame of video
 		ret1, frame1 = video_capture1.read()
-		# ret2, frame2 = video_capture2.read()
+		ret2, frame2 = video_capture2.read()
 
 		# Resize frame of video to 1/4 size for faster face recognition processing
 		small_frame1 = cv2.resize(frame1, (0, 0), fx=0.25, fy=0.25)
-		# small_frame2 = cv2.resize(frame2, (0, 0), fx=0.25, fy=0.25)
+		small_frame2 = cv2.resize(frame2, (0, 0), fx=0.25, fy=0.25)
 
 		# Convert the image from BGR color (which OpenCV uses) to RGB color (which face_recognition uses)
 		rgb_small_frame1 = small_frame1[:, :, ::-1]
-		# rgb_small_frame2 = small_frame2[:, :, ::-1]
+		rgb_small_frame2 = small_frame2[:, :, ::-1]
 		
 		# Only process every other frame of video to save time
 		if process_this_frame:
 			# Find all the faces and face encodings in the current frame of video
 			face_locations1 = face_recognition.face_locations(rgb_small_frame1)
-			# face_locations2 = face_recognition.face_locations(rgb_small_frame2)
+			face_locations2 = face_recognition.face_locations(rgb_small_frame2)
 			face_encodings1 = face_recognition.face_encodings(rgb_small_frame1, face_locations1)
-			# face_encodings2 = face_recognition.face_encodings(rgb_small_frame2, face_locations2)
+			face_encodings2 = face_recognition.face_encodings(rgb_small_frame2, face_locations2)
 			
 			
 			rec_frame = [[]]
@@ -103,32 +104,90 @@ def route_rec():
 				if name+'1' not in seen_face:
 					seen_face.append(name+'1')
 					rec_frame.append(face_names1)
+					inmateID1 = face_names1[0]
+					sql11 = "SELECT `id`,`sourceId`,`destinationId` FROM `routes` WHERE `inmateId` = "+inmateID1+" AND `enabled`='1'"
+					mycursor.execute(sql11)
+					myresult = mycursor.fetchone()
+					routeID1 = myresult[0]
+					sourceID1 = str(myresult[1])
+					destinationID1 = str(myresult[2])
+					# print(sourceID1)
+					# print(destinationID1)
+					# print(routeID1)
+					sql111 = "SELECT `camera` FROM `routecameramap` WHERE `sourceId` = "+sourceID1+" AND `destinationId` = "+destinationID1
+					mycursor.execute(sql111)
+					myresult11 = mycursor.fetchall()
+					cameralist = []
+					for camera in myresult11:
+						camerastring = camera[0]
+						cameranumber = camerastring[-4]
+						cameralist.append(cameranumber)
+					
+					cameraID = face_names1[2]
+					if cameraID in cameralist:
+						sql1111 = "UPDATE `routes` SET `enabled`='0' WHERE `id`="+str(routeID1)
+						mycursor.execute(sql1111)
+						mydb.commit()
+
+					serialized_data = json.dumps(face_names1)
+					sql1 = "INSERT INTO `journeydata`(`routeID`, `journeyArray`) VALUES (%s,%s)"
+					values = (routeID1,serialized_data)
+					mycursor.execute(sql1,values)
+					mydb.commit()
 
 				
 
-			# for face_encoding in face_encodings2:
-			# 	face_names2 = []
-			# 	# See if the face is a match for the known face(s)
-			# 	matches = face_recognition.compare_faces(known_face_encodings, face_encoding)
-			# 	name = "Unknown"
+			for face_encoding in face_encodings2:
+				face_names2 = []
+				# See if the face is a match for the known face(s)
+				matches = face_recognition.compare_faces(known_face_encodings, face_encoding)
+				name = "Unknown"
 
-			# 	# # If a match was found in known_face_encodings, just use the first one.
-			# 	# if True in matches:
-			# 	#     first_match_index = matches.index(True)
-			# 	#     name = known_face_names[first_match_index]
+				# # If a match was found in known_face_encodings, just use the first one.
+				# if True in matches:
+				#     first_match_index = matches.index(True)
+				#     name = known_face_names[first_match_index]
 
-			# 	# Or instead, use the known face with the smallest distance to the new face
-			# 	face_distances = face_recognition.face_distance(known_face_encodings, face_encoding)
-			# 	best_match_index = np.argmin(face_distances)
-			# 	if matches[best_match_index]:
-			# 		name = known_face_names[best_match_index]
+				# Or instead, use the known face with the smallest distance to the new face
+				face_distances = face_recognition.face_distance(known_face_encodings, face_encoding)
+				best_match_index = np.argmin(face_distances)
+				if matches[best_match_index]:
+					name = known_face_names[best_match_index]
 				
-			# 	face_names2.append(name)
-			# 	face_names2.append(str(datetime.now()))
-			# 	face_names2.append('2')
-				# if name+'2' not in seen_face:
-				# 	seen_face.append(name+'2')
-				# 	rec_frame.append(face_names2)
+				face_names2.append(name)
+				face_names2.append(str(datetime.now()))
+				face_names2.append('2')
+				if name+'2' not in seen_face:
+					seen_face.append(name+'2')
+					rec_frame.append(face_names2)
+					inmateID2 = face_names2[0]
+					sql12 = "SELECT `id`,`sourceId`,`destinationId` FROM `routes` WHERE `inmateId` = "+inmateID2+" AND `enabled`='1'"
+					mycursor.execute(sql12)
+					myresult2 = mycursor.fetchone()
+					routeID2 = myresult2[0]
+					sourceID2 = str(myresult[1])
+					destinationID2 = str(myresult[2])
+					sql222 = "SELECT `camera` FROM `routecameramap` WHERE `sourceId` = "+sourceID2+" AND `destinationId` = "+destinationID2
+					mycursor.execute(sql222)
+					myresult22 = mycursor.fetchall()
+					cameralist = []
+					for camera in myresult22:
+						camerastring = camera[0]
+						cameranumber = camerastring[-4]
+						cameralist.append(cameranumber)
+					
+					cameraID = face_names2[2]
+					if cameraID in cameralist:
+						sql2222 = "UPDATE `routes` SET `enabled`='0' WHERE `id`="+str(routeID2)
+						mycursor.execute(sql2222)
+						mydb.commit()
+
+
+					serialized_data1 = json.dumps(face_names2)
+					sql2 = "INSERT INTO `journeydata`(`routeID`, `journeyArray`) VALUES (%s,%s)"
+					values1 = (routeID2,serialized_data1)
+					mycursor.execute(sql2,values1)
+					mydb.commit()
 			rec_frame.pop(0)	
 			print(rec_frame)
 
@@ -158,7 +217,7 @@ def route_rec():
 		# Display the resulting imagecv2.putText(frame, ref_dictt[name], (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
 		
 		cv2.imshow('Video1', frame1)
-		# cv2.imshow('Video2', frame2)
+		cv2.imshow('Video2', frame2)
 		
 		# Hit 'q' on the keyboard to quit!
 		if cv2.waitKey(1) & 0xFF == ord('q'):
@@ -169,7 +228,7 @@ def route_rec():
 
 	# Release handle to the webcam
 	video_capture1.release()
-	# video_capture2.release()
+	video_capture2.release()
 
 	cv2.destroyAllWindows()
 
