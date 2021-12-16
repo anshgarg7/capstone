@@ -28,7 +28,12 @@
           <!-- small box -->
           <div class="small-box bg-info">
             <div class="inner">
-              <h3>150</h3>
+              <h3>
+                <?php $number = getThis("SELECT COUNT(*) FROM `inmatedetails`");
+                echo $number[0]['COUNT(*)'];
+
+                ?>
+              </h3>
 
               <p>Total Inmates</p>
             </div>
@@ -43,7 +48,10 @@
           <!-- small box -->
           <div class="small-box bg-success">
             <div class="inner">
-              <h3>53</h3>
+              <h3><?php $paroleNumber = getThis("SELECT COUNT(*) FROM `parolemanagement` WHERE `paroleRequestStatus`='1'");
+                echo $paroleNumber[0]['COUNT(*)'];
+
+                ?></h3>
 
               <p>Inmates on Parole</p>
             </div>
@@ -56,9 +64,31 @@
         <!-- ./col -->
         <div class="col-lg-3 col-6">
           <!-- small box -->
+          <div class="small-box bg-danger">
+            <div class="inner">
+              <h3>
+                <?php $bailNumber = getThis("SELECT COUNT(*) FROM `bailmanagement`");
+                echo $bailNumber[0]['COUNT(*)'];
+                ?>
+              </h3>
+              <p>Inmates on Bail</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-pie-graph"></i>
+            </div>
+            <a href="bailmanagement.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-6">
+          <!-- small box -->
           <div class="small-box bg-warning">
             <div class="inner">
-              <h3>44</h3>
+              <h3><?php
+              $x = $number[0]['COUNT(*)'];
+              $y = $paroleNumber[0]['COUNT(*)'];
+              $z = $bailNumber[0]['COUNT(*)'];
+              echo $x-$y-$z;
+              ?></h3>
 
               <p>Inmates in Jail</p>
             </div>
@@ -69,20 +99,7 @@
           </div>
         </div>
         <!-- ./col -->
-        <div class="col-lg-3 col-6">
-          <!-- small box -->
-          <div class="small-box bg-danger">
-            <div class="inner">
-              <h3>65</h3>
-
-              <p>Inmates on Bail</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-pie-graph"></i>
-            </div>
-            <a href="bailmanagement.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
+        
         <!-- ./col -->
       </div>
       <!-- /.row -->

@@ -139,6 +139,15 @@ $result = $result[0];
                 </p>
               </a>
             </li>
+
+            <li class="nav-item">
+              <a href="movementmanagement.php" class="nav-link">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                  Inmate Movement Management
+                </p>
+              </a>
+            </li>
             
            
             
