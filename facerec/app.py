@@ -105,10 +105,30 @@ def route_rec():
 					seen_face.append(name+'1')
 					rec_frame.append(face_names1)
 					inmateID1 = face_names1[0]
-					sql11 = "SELECT `id` FROM `routes` WHERE `inmateId` = "+inmateID1+" AND `enabled`='1'"
+					sql11 = "SELECT `id`,`sourceId`,`destinationId` FROM `routes` WHERE `inmateId` = "+inmateID1+" AND `enabled`='1'"
 					mycursor.execute(sql11)
 					myresult = mycursor.fetchone()
 					routeID1 = myresult[0]
+					sourceID1 = str(myresult[1])
+					destinationID1 = str(myresult[2])
+					# print(sourceID1)
+					# print(destinationID1)
+					# print(routeID1)
+					sql111 = "SELECT `camera` FROM `routecameramap` WHERE `sourceId` = "+sourceID1+" AND `destinationId` = "+destinationID1
+					mycursor.execute(sql111)
+					myresult11 = mycursor.fetchall()
+					cameralist = []
+					for camera in myresult11:
+						camerastring = camera[0]
+						cameranumber = camerastring[-4]
+						cameralist.append(cameranumber)
+					
+					cameraID = face_names1[2]
+					if cameraID in cameralist:
+						sql1111 = "UPDATE `routes` SET `enabled`='0' WHERE `id`="+str(routeID1)
+						mycursor.execute(sql1111)
+						mydb.commit()
+
 					serialized_data = json.dumps(face_names1)
 					sql1 = "INSERT INTO `journeydata`(`routeID`, `journeyArray`) VALUES (%s,%s)"
 					values = (routeID1,serialized_data)
@@ -141,10 +161,28 @@ def route_rec():
 					seen_face.append(name+'2')
 					rec_frame.append(face_names2)
 					inmateID2 = face_names2[0]
-					sql12 = "SELECT `id` FROM `routes` WHERE `inmateId` = "+inmateID2+" AND `enabled`='1'"
+					sql12 = "SELECT `id`,`sourceId`,`destinationId` FROM `routes` WHERE `inmateId` = "+inmateID2+" AND `enabled`='1'"
 					mycursor.execute(sql12)
 					myresult2 = mycursor.fetchone()
 					routeID2 = myresult2[0]
+					sourceID2 = str(myresult[1])
+					destinationID2 = str(myresult[2])
+					sql222 = "SELECT `camera` FROM `routecameramap` WHERE `sourceId` = "+sourceID2+" AND `destinationId` = "+destinationID2
+					mycursor.execute(sql222)
+					myresult22 = mycursor.fetchall()
+					cameralist = []
+					for camera in myresult22:
+						camerastring = camera[0]
+						cameranumber = camerastring[-4]
+						cameralist.append(cameranumber)
+					
+					cameraID = face_names2[2]
+					if cameraID in cameralist:
+						sql2222 = "UPDATE `routes` SET `enabled`='0' WHERE `id`="+str(routeID2)
+						mycursor.execute(sql2222)
+						mydb.commit()
+
+
 					serialized_data1 = json.dumps(face_names2)
 					sql2 = "INSERT INTO `journeydata`(`routeID`, `journeyArray`) VALUES (%s,%s)"
 					values1 = (routeID2,serialized_data1)
