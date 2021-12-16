@@ -10,7 +10,13 @@ import time
 import csv
 from datetime import datetime
 import mysql.connector
-
+mydb = mysql.connector.connect(
+  host="localhost",
+  user="root",
+  password="",
+  database="jail"
+)
+mycursor = mydb.cursor()
 
 app = Flask(__name__)
 
@@ -20,6 +26,9 @@ def get_data():
 	name = request.args.get("name")
 	ref_id = request.args.get("ref_id")
 	temp = face_rec(name,ref_id)
+	sql = "UPDATE `inmatedetails` SET `enabled`='1' WHERE `id` = "+ref_id
+	mycursor.execute(sql)
+	mydb.commit()
 	return redirect("http://localhost/capstone/admin/faceRecord.php")
 
 def face_rec(name, ref_id):
