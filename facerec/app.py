@@ -45,32 +45,43 @@ def route_rec():
 
 
 	#############################################################frame capturing from camera and face recognition
-	video_capture = cv2.VideoCapture(0)
+	video_capture1 = cv2.VideoCapture(0)
+	# video_capture2 = cv2.VideoCapture(1)
+
 	# Initialize some variables
 	face_locations = []
 	face_encodings = []
 	face_names = []
 	process_this_frame = True
-
+	seen_face = []
 	while True  :
 		# Grab a single frame of video
-		ret, frame = video_capture.read()
+		ret1, frame1 = video_capture1.read()
+		# ret2, frame2 = video_capture2.read()
 
 		# Resize frame of video to 1/4 size for faster face recognition processing
-		small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
+		small_frame1 = cv2.resize(frame1, (0, 0), fx=0.25, fy=0.25)
+		# small_frame2 = cv2.resize(frame2, (0, 0), fx=0.25, fy=0.25)
 
 		# Convert the image from BGR color (which OpenCV uses) to RGB color (which face_recognition uses)
-		rgb_small_frame = small_frame[:, :, ::-1]
-
+		rgb_small_frame1 = small_frame1[:, :, ::-1]
+		# rgb_small_frame2 = small_frame2[:, :, ::-1]
+		
 		# Only process every other frame of video to save time
 		if process_this_frame:
 			# Find all the faces and face encodings in the current frame of video
-			face_locations = face_recognition.face_locations(rgb_small_frame)
-			face_encodings = face_recognition.face_encodings(rgb_small_frame, face_locations)
-
-			face_names = []
-			for face_encoding in face_encodings:
+			face_locations1 = face_recognition.face_locations(rgb_small_frame1)
+			# face_locations2 = face_recognition.face_locations(rgb_small_frame2)
+			face_encodings1 = face_recognition.face_encodings(rgb_small_frame1, face_locations1)
+			# face_encodings2 = face_recognition.face_encodings(rgb_small_frame2, face_locations2)
+			
+			
+			rec_frame = [[]]
+			
+			for face_encoding in face_encodings1:
 				# See if the face is a match for the known face(s)
+				face_names1 = []
+				
 				matches = face_recognition.compare_faces(known_face_encodings, face_encoding)
 				name = "Unknown"
 
@@ -84,34 +95,71 @@ def route_rec():
 				best_match_index = np.argmin(face_distances)
 				if matches[best_match_index]:
 					name = known_face_names[best_match_index]
-				face_names.append(name)
-				print(face_names, end="")
-				print(datetime.now())	
+				
+				face_names1.append(name)
+				face_names1.append(str(datetime.now()))
+				face_names1.append('1')
+				
+				if name+'1' not in seen_face:
+					seen_face.append(name+'1')
+					rec_frame.append(face_names1)
+
+				
+
+			# for face_encoding in face_encodings2:
+			# 	face_names2 = []
+			# 	# See if the face is a match for the known face(s)
+			# 	matches = face_recognition.compare_faces(known_face_encodings, face_encoding)
+			# 	name = "Unknown"
+
+			# 	# # If a match was found in known_face_encodings, just use the first one.
+			# 	# if True in matches:
+			# 	#     first_match_index = matches.index(True)
+			# 	#     name = known_face_names[first_match_index]
+
+			# 	# Or instead, use the known face with the smallest distance to the new face
+			# 	face_distances = face_recognition.face_distance(known_face_encodings, face_encoding)
+			# 	best_match_index = np.argmin(face_distances)
+			# 	if matches[best_match_index]:
+			# 		name = known_face_names[best_match_index]
+				
+			# 	face_names2.append(name)
+			# 	face_names2.append(str(datetime.now()))
+			# 	face_names2.append('2')
+				# if name+'2' not in seen_face:
+				# 	seen_face.append(name+'2')
+				# 	rec_frame.append(face_names2)
+			rec_frame.pop(0)	
+			print(rec_frame)
+
 		process_this_frame = not process_this_frame
 
 
 		# Display the results
-		for (top, right, bottom, left), name in zip(face_locations, face_names):
-			# Scale back up face locations since the frame we detected in was scaled to 1/4 size
-			top *= 4
-			right *= 4
-			bottom *= 4
-			left *= 4
+		# for (top, right, bottom, left), name in zip(face_locations1, face_names1):
+		# 	# Scale back up face locations since the frame we detected in was scaled to 1/4 size
+		# 	top *= 4
+		# 	right *= 4
+		# 	bottom *= 4
+		# 	left *= 4
 
-			              #updating in database
+		# 	              #updating in database
 
-			cv2.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), 2)
+		# 	cv2.rectangle(frame1, (left, top), (right, bottom), (0, 0, 255), 2)
 
-			# Draw a label with a name below the face
-			cv2.rectangle(frame, (left, bottom - 35), (right, bottom), (0, 0, 255), cv2.FILLED)
-			font = cv2.FONT_HERSHEY_DUPLEX
-			cv2.putText(frame, ref_dictt[name], (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
+		# 	# Draw a label with a name below the face
+		# 	cv2.rectangle(frame1, (left, bottom - 35), (right, bottom), (0, 0, 255), cv2.FILLED)
+		# 	font = cv2.FONT_HERSHEY_DUPLEX
+		# 	cv2.putText(frame1, ref_dictt[name], (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
 		
-		font = cv2.FONT_HERSHEY_DUPLEX
+		#font = cv2.FONT_HERSHEY_DUPLEX
 		# cv2.putText(frame, last_rec[0], (6,20), font, 1.0, (0,0 ,0), 1)
 
 		# Display the resulting imagecv2.putText(frame, ref_dictt[name], (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
-		cv2.imshow('Video', frame)
+		
+		cv2.imshow('Video1', frame1)
+		# cv2.imshow('Video2', frame2)
+		
 		# Hit 'q' on the keyboard to quit!
 		if cv2.waitKey(1) & 0xFF == ord('q'):
 			# t.cancel()
@@ -120,9 +168,10 @@ def route_rec():
 			# break
 
 	# Release handle to the webcam
-	video_capture.release()
-	cv2.destroyAllWindows()
+	video_capture1.release()
+	# video_capture2.release()
 
+	cv2.destroyAllWindows()
 
 
 @app.route('/encode', methods=['GET', 'POST'])

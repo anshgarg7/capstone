@@ -116,12 +116,32 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>1.</td>
-                    <td>Prisoner 1</td>
-                    <td>Location 1</td>
-                    <td>Location 2</td>
-                  </tr>
+                            <?php
+                                $inmatesonmove = getThis("SELECT `id`, `sourceId`, `destinationId`, `inmateId`, `generatedAt`, `enabled` FROM `routes` WHERE `enabled`='1'");
+                                for ($i = 0; $i < sizeof($inmatesonmove); $i++) {
+                                ?>
+                                    <tr>
+                                        <td><?php echo $i + 1; ?></td>
+                                        <?php
+                                        $inmateID =  $inmatesonmove[$i]['inmateId'];
+                                        $inamtedet = getThis("SELECT `firstName`, `lastName` FROM `inmatedetails` WHERE `id`='$inmateID'");
+                                        $inamtedet = $inamtedet[0]; ?>
+                                        <td><?php echo e_d('d', $inamtedet['firstName']) . " " . e_d('d', $inamtedet['lastName']); ?></td>
+                                        <?php
+                                        $sourcelocID =  $inmatesonmove[$i]['sourceId'];
+                                        $sourcelocation = getThis("SELECT `name` FROM `locationdetails` WHERE `id`='$sourcelocID'");
+                                        $sourcelocation = $sourcelocation[0]; ?>
+                                        <td><?php echo e_d('d', $sourcelocation['name']); ?></td>
+                                        <?php
+                                        $destinationlocID =  $inmatesonmove[$i]['destinationId'];
+                                        $destinationlocation = getThis("SELECT `name` FROM `locationdetails` WHERE `id`='$destinationlocID'");
+                                        $destinationlocation = $destinationlocation[0]; 
+                                        ?>
+                                        <td><?php echo e_d('d', $destinationlocation['name']); ?></td>
+                                    </tr>
+                                <?php
+                                }
+                                ?>
                 </tbody>
               </table>
             </div>
