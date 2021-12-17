@@ -18,9 +18,109 @@
     </div>
 
     <section class="content">
+    <div class="row">
+
+
         
+<!-- /.col -->
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Inmates on movement without permission</h3>
+
+            <div class="card-tools">
+                <ul class="pagination pagination-sm float-right">
+                    <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- /.card-header -->
+
+
+        <div class="card-body p-0">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th style="width: 10px">#</th>
+                        <th>Name</th>
+                        <th>Remarks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $moves = getThis("SELECT * FROM `journeydata` WHERE `routeId`='0'");
+                    for($p=0;$p<sizeof($moves); $p++)
+                    {
+                        $journey = $moves[$p];
+                        ?>
+                        <tr>
+                            <td>
+                                <?php echo $p+1; ?>
+                            </td>
+                          
+
+                       
+                            <?php
+                                $routeArr = array();
+                                $temp = $journey['journeyArray'];
+                                $temp = trim($temp,'[');
+                                $temp = trim($temp,']');
+                                $temp = trim($temp, '"');
+                                $arr = explode(",", $temp);
+                                for($x=0;$x<sizeof($arr);$x++)
+                                {
+                                    $arr[$x] = ltrim($arr[$x]);
+                                    $arr[$x] = trim($arr[$x], '"');
+                                }
+
+                                $inmateIdTemp = $arr[0];
+                                $timeStamp = $arr[1];
+                                $cameraId = $arr[2];
+                                
+                                ?>
+                                <td>
+                                    <?php 
+
+                                    $inmateName = getThis("SELECT  `firstName`, `lastName` FROM `inmatedetails` WHERE `id`='$inmateIdTemp'");
+                                    $inmateName = $inmateName[0];
+                                    echo e_d('d', $inmateName['firstName'])." ".e_d('d', $inmateName['lastName']);
+
+                                ?>
+                                </td>
+                                <td>
+                                    <?php
+
+                                        echo "Recorded at camera number: ".$cameraId." at time: ".$timeStamp;
+
+                                    ?>
+                                </td>
+                        
+                        <?php    
+                        }
+                        ?>
+                       
+
+                        </tr>
+
+                        
+                </tbody>
+            </table>
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+</div>
+
+</div>
         <br><br>
         <div class="row">
+
+
+
             <!-- /.col -->
             <div class="col-md-12">
                 <div class="card">
@@ -38,6 +138,8 @@
                         </div>
                     </div>
                     <!-- /.card-header -->
+
+
                     <div class="card-body p-0">
                         <table class="table">
                             <thead>
