@@ -237,7 +237,11 @@
                                         $diff = strtotime($today) - strtotime($first);
                                         $diff = $diff/60;
                                         // echo $diff;
-                                        if($time>($avgTime+5) || $diff>($avgTime+5))
+                                        if(sizeof($routeArr)==0)
+                                        {
+                                            echo "Movement not started yet.";
+                                        }
+                                        else if($time>($avgTime+5) || $diff>($avgTime+5))
                                         {
                                             ?>
                                             <button class="btn btn-danger" disabled>Alert</button>
