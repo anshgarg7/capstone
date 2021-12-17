@@ -1,0 +1,5 @@
+Flask>=2.0.1
+cv2
+face_recognition
+pickle
+sys

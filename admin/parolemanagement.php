@@ -68,7 +68,7 @@
                                     <tr>
                                         <td><?php echo $i + 1; ?></td>
                                         <?php
-                                        $inmateID = $inmate['id'];
+                                        $inmateID = $inmate['inmateID'];
                                         $inmateDetails = getThis("SELECT `firstName`, `lastName`, `idProofNumber` FROM `inmatedetails` WHERE `id`='$inmateID'");
                                         $inmateDetails = $inmateDetails[0];
                                         ?>
