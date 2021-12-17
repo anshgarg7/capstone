@@ -129,18 +129,23 @@
                                         $first = $routeArr[array_key_first($routeArr)];
                                         $time = strtotime($last)-strtotime($first);
                                         $time =  $time/60;
-
+                                        $today = date("Y-m-d H:i:s");
                                         $avgTime = getThis("SELECT MAX(`averageTime`) FROM `routecameramap` WHERE `sourceId`='$sourceId' AND `destinationId`='$destinationId';");
                                         $avgTime = $avgTime[0]["MAX(`averageTime`)"];
-                                        if($time<($avgTime+5))
+                                        $diff = strtotime($today) - strtotime($first);
+                                        $diff = $diff/60;
+                                        // echo $diff;
+                                        if($time>($avgTime+5) || $diff>($avgTime+5))
                                         {
-                                            echo "In movement. Last recorded at camera number: ".array_key_last($routeArr);
-                                        }
-                                        else{
                                             ?>
                                             <button class="btn btn-danger" disabled>Alert</button>
                                             <?php
                                             echo "Time exceeded. Last recorded at camera number: ".array_key_last($routeArr)." at time: ".$routeArr[array_key_last($routeArr)];
+                                        }
+                                        else{
+                        
+                                            echo "In movement. Last recorded at camera number: ".array_key_last($routeArr);
+                                            
                                         }
                                     }
 
