@@ -112,7 +112,10 @@ $details = $details[0];
                                     Phone Number
                                 </td>
                                 <td>
-                                    <?php echo e_d('d', $details['phoneNumber']).", ".e_d('d', $details['alternatePhoneNumber']); ?>
+                                    <?php echo e_d('d', $details['phoneNumber']);
+                                    
+                                   
+                                    ?>
                                 </td>
                             </tr>
                             <tr>
