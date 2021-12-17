@@ -100,6 +100,30 @@ $result = $result[0];
               </a>
             </li>
             <li class="nav-item">
+              <a href="movementmanagement.php" class="nav-link">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                  Inmate Movement 
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="routemanagement.php" class="nav-link">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                  Route Management
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="locationmanagement.php" class="nav-link">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                  Location Management
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
               <a href="parolemanagement.php" class="nav-link">
                 <i class="nav-icon fas fa-th"></i>
                 <p>
@@ -123,36 +147,10 @@ $result = $result[0];
                 </p>
               </a>
             </li>
-            <li class="nav-item">
-              <a href="locationmanagement.php" class="nav-link">
-                <i class="nav-icon fas fa-th"></i>
-                <p>
-                  Location Management
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="routemanagement.php" class="nav-link">
-                <i class="nav-icon fas fa-th"></i>
-                <p>
-                  Route Management
-                </p>
-              </a>
-            </li>
+           
+           
 
-            <li class="nav-item">
-              <a href="movementmanagement.php" class="nav-link">
-                <i class="nav-icon fas fa-th"></i>
-                <p>
-                  Inmate Movement 
-                </p>
-              </a>
-            </li>
-            
-           
-            
-           
-          
+
           
           </ul>
         </nav>
