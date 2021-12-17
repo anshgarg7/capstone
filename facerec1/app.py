@@ -55,6 +55,9 @@ def route_rec():
 	face_names = []
 	process_this_frame = True
 	seen_face = []
+	seen1 = False
+	seen2 = False
+
 	while True  :
 		# Grab a single frame of video
 		ret1, frame1 = video_capture1.read()
@@ -79,6 +82,7 @@ def route_rec():
 			
 			rec_frame = [[]]
 			
+			
 			for face_encoding in face_encodings1:
 				# See if the face is a match for the known face(s)
 				face_names1 = []
@@ -101,39 +105,57 @@ def route_rec():
 				face_names1.append(str(datetime.now()))
 				face_names1.append('1')
 				
-				if name+'1' not in seen_face:
-					seen_face.append(name+'1')
-					rec_frame.append(face_names1)
-					inmateID1 = face_names1[0]
-					sql11 = "SELECT `id`,`sourceId`,`destinationId` FROM `routes` WHERE `inmateId` = "+inmateID1+" AND `enabled`='1'"
-					mycursor.execute(sql11)
-					myresult = mycursor.fetchone()
-					routeID1 = myresult[0]
-					sourceID1 = str(myresult[1])
-					destinationID1 = str(myresult[2])
-					# print(sourceID1)
-					# print(destinationID1)
-					# print(routeID1)
-					sql111 = "SELECT `camera` FROM `routecameramap` WHERE `sourceId` = "+sourceID1+" AND `destinationId` = "+destinationID1
-					mycursor.execute(sql111)
-					myresult11 = mycursor.fetchall()
-					cameralist = []
-					for camera in myresult11:
-						camerastring = camera[0]
-						cameranumber = camerastring[-4]
-						cameralist.append(cameranumber)
-					
-					cameraID = face_names1[2]
-					if cameraID in cameralist:
-						sql1111 = "UPDATE `routes` SET `enabled`='0' WHERE `id`="+str(routeID1)
-						mycursor.execute(sql1111)
-						mydb.commit()
+				inmateID1 = face_names1[0]
+				sqlcheck = "SELECT `id`,`sourceId`,`destinationId` FROM `routes` WHERE `inmateId` = "+inmateID1+" AND `enabled`='1'"
+				mycursor.execute(sqlcheck)
+				myresultcheck = mycursor.fetchone()
+				check = False
+				if myresultcheck:
+					check = True
 
-					serialized_data = json.dumps(face_names1)
-					sql1 = "INSERT INTO `journeydata`(`routeID`, `journeyArray`) VALUES (%s,%s)"
-					values = (routeID1,serialized_data)
-					mycursor.execute(sql1,values)
-					mydb.commit()
+				if (name+'1' not in seen_face or seen1 == False):
+					seen1 = True
+					seen2 = False
+					if check == True:
+						seen_face.append(name+'1')
+						rec_frame.append(face_names1)
+						inmateID1 = face_names1[0]
+						sql11 = "SELECT `id`,`sourceId`,`destinationId` FROM `routes` WHERE `inmateId` = "+inmateID1+" AND `enabled`='1'"
+						mycursor.execute(sql11)
+						myresult = mycursor.fetchone()
+						routeID1 = myresult[0]
+						sourceID1 = str(myresult[1])
+						destinationID1 = str(myresult[2])
+						# print(sourceID1)
+						# print(destinationID1)
+						# print(routeID1)
+						sql111 = "SELECT `camera` FROM `routecameramap` WHERE `sourceId` = "+sourceID1+" AND `destinationId` = "+destinationID1
+						mycursor.execute(sql111)
+						myresult11 = mycursor.fetchall()
+						cameralist = []
+						for camera in myresult11:
+							camerastring = camera[0]
+							cameranumber = camerastring[-4]
+							cameralist.append(cameranumber)
+						
+						cameraID = face_names1[2]
+						if cameraID in cameralist:
+							sql1111 = "UPDATE `routes` SET `enabled`='0' WHERE `id`="+str(routeID1)
+							mycursor.execute(sql1111)
+							mydb.commit()
+
+						serialized_data = json.dumps(face_names1)
+						sql1 = "INSERT INTO `journeydata`(`routeID`, `journeyArray`) VALUES (%s,%s)"
+						values = (routeID1,serialized_data)
+						mycursor.execute(sql1,values)
+						mydb.commit()
+					else:
+						serialized_data = json.dumps(face_names1)
+						print(serialized_data)
+						sql1 = "INSERT INTO `journeydata`(`routeID`, `journeyArray`) VALUES (%s,%s)"
+						values = ("0",serialized_data)
+						mycursor.execute(sql1,values)
+						mydb.commit()
 
 				
 
@@ -157,37 +179,54 @@ def route_rec():
 				face_names2.append(name)
 				face_names2.append(str(datetime.now()))
 				face_names2.append('2')
-				if name+'2' not in seen_face:
-					seen_face.append(name+'2')
-					rec_frame.append(face_names2)
-					inmateID2 = face_names2[0]
-					sql12 = "SELECT `id`,`sourceId`,`destinationId` FROM `routes` WHERE `inmateId` = "+inmateID2+" AND `enabled`='1'"
-					mycursor.execute(sql12)
-					myresult2 = mycursor.fetchone()
-					routeID2 = myresult2[0]
-					sourceID2 = str(myresult[1])
-					destinationID2 = str(myresult[2])
-					sql222 = "SELECT `camera` FROM `routecameramap` WHERE `sourceId` = "+sourceID2+" AND `destinationId` = "+destinationID2
-					mycursor.execute(sql222)
-					myresult22 = mycursor.fetchall()
-					cameralist = []
-					for camera in myresult22:
-						camerastring = camera[0]
-						cameranumber = camerastring[-4]
-						cameralist.append(cameranumber)
-					
-					cameraID = face_names2[2]
-					if cameraID in cameralist:
-						sql2222 = "UPDATE `routes` SET `enabled`='0' WHERE `id`="+str(routeID2)
-						mycursor.execute(sql2222)
+
+				inmateID2 = face_names2[0]
+				sqlcheck = "SELECT `id`,`sourceId`,`destinationId` FROM `routes` WHERE `inmateId` = "+inmateID2+" AND `enabled`='1'"
+				mycursor.execute(sqlcheck)
+				myresultcheck = mycursor.fetchone()
+				check = False
+				if myresultcheck:
+					check = True
+
+				if (name+'2' not in seen_face or seen2 == False):
+					seen1 = False
+					seen2 = True
+					if check == True:
+						seen_face.append(name+'2')
+						rec_frame.append(face_names2)
+						inmateID2 = face_names2[0]
+						sql12 = "SELECT `id`,`sourceId`,`destinationId` FROM `routes` WHERE `inmateId` = "+inmateID2+" AND `enabled`='1'"
+						mycursor.execute(sql12)
+						myresult2 = mycursor.fetchone()
+						routeID2 = myresult2[0]
+						sourceID2 = str(myresult[1])
+						destinationID2 = str(myresult[2])
+						sql222 = "SELECT `camera` FROM `routecameramap` WHERE `sourceId` = "+sourceID2+" AND `destinationId` = "+destinationID2
+						mycursor.execute(sql222)
+						myresult22 = mycursor.fetchall()
+						cameralist = []
+						for camera in myresult22:
+							camerastring = camera[0]
+							cameranumber = camerastring[-4]
+							cameralist.append(cameranumber)
+						
+						cameraID = face_names2[2]
+						if cameraID in cameralist:
+							sql2222 = "UPDATE `routes` SET `enabled`='0' WHERE `id`="+str(routeID2)
+							mycursor.execute(sql2222)
+							mydb.commit()
+						serialized_data1 = json.dumps(face_names2)
+						sql2 = "INSERT INTO `journeydata`(`routeID`, `journeyArray`) VALUES (%s,%s)"
+						values1 = (routeID2,serialized_data1)
+						mycursor.execute(sql2,values1)
 						mydb.commit()
-
-
-					serialized_data1 = json.dumps(face_names2)
-					sql2 = "INSERT INTO `journeydata`(`routeID`, `journeyArray`) VALUES (%s,%s)"
-					values1 = (routeID2,serialized_data1)
-					mycursor.execute(sql2,values1)
-					mydb.commit()
+					else:
+						serialized_data1 = json.dumps(face_names2)
+						print(serialized_data1)
+						sql2 = "INSERT INTO `journeydata`(`routeID`, `journeyArray`) VALUES (%s,%s)"
+						values1 = ("0",serialized_data1)
+						mycursor.execute(sql2,values1)
+						mydb.commit()
 			rec_frame.pop(0)	
 			print(rec_frame)
 
@@ -414,4 +453,4 @@ def fac_detect():
 
 
 if __name__ == "__main__":
-	app.run()
+	app.run(port=5001)
