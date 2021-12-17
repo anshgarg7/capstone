@@ -227,6 +227,10 @@
                                         }
                                         else{
                                         // $n = sizeof($routeArr);
+                                        if(sizeof($routeArr)==0)
+                                        {
+                                            echo "Movement not started yet.";
+                                        }else{
                                         $last = $routeArr[array_key_last($routeArr)];
                                         $first = $routeArr[array_key_first($routeArr)];
                                         $time = strtotime($last)-strtotime($first);
@@ -237,11 +241,8 @@
                                         $diff = strtotime($today) - strtotime($first);
                                         $diff = $diff/60;
                                         // echo $diff;
-                                        if(sizeof($routeArr)==0)
-                                        {
-                                            echo "Movement not started yet.";
-                                        }
-                                        else if($time>($avgTime+5) || $diff>($avgTime+5))
+                                        
+                                        if($time>($avgTime+5) || $diff>($avgTime+5))
                                         {
                                             ?>
                                             <button class="btn btn-danger" disabled>Alert</button>
@@ -252,7 +253,7 @@
                         
                                             echo "In movement. Last recorded at camera number: ".array_key_last($routeArr);
                                             
-                                        }
+                                        }}
                                     }
 
                                     ?>
