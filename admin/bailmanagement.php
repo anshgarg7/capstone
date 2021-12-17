@@ -21,7 +21,7 @@
         <div class="container-fluid">
             <!-- Small boxes (Stat box) -->
             <div class="row">
-                <a href="#" class="btn btn-block btn-success">Pending Bail Orders</a>
+                <a href="createNewBail.php" class="btn btn-block btn-success">Create Bail Entry</a>
 
             </div>
         </div>
@@ -52,13 +52,13 @@
                                     <th>Name</th>
                                     <th>Date of Court Order</th>
                                     <th>Date of Approval</th>
-                                    <th>Action</th>
+                                    <th>Date of Registeration</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
                                 $jailId = 1;
-                                $bailInmates = getThis("SELECT `id`, `inmateID`, `orderID`, `approvalDate` FROM `bailmanagement` WHERE `jailID`='$jailId'");
+                                $bailInmates = getThis("SELECT `id`, `inmateID`, `orderDate`, `approvalDate`, `generatedAt` FROM `bailmanagement` WHERE `jailID`='$jailId'");
                                 for ($i = 0; $i < sizeof($bailInmates); $i++) {
                                     $inmate = $bailInmates[$i];
                                 ?>
@@ -71,13 +71,10 @@
                                             echo e_d('d', $inmateName['firstName']) . " " . e_d('d', $inmateName['lastName']); ?>
                                         </td>
                                         <td>
-                                            <?php $orderId = $inmate['orderID'];
-                                            $orderDetails = getThis("");
-                                            $orderDetails = $orderDetails[0]['date'];
-                                            echo e_d('d', $orderDetails); ?>
+                                            <?php echo substr($inmate['orderDate'],0,10); ?>
                                         </td>
-                                        <td><?php echo e_d('d', $inmate['approvalDate']); ?></td>
-                                        <td><a href="#" class="btn btn-primary">View Details</a></td>
+                                        <td><?php echo $inmate['approvalDate']; ?></td>
+                                        <td><?php echo $inmate['generatedAt']; ?></td>
                                     </tr>
                                 <?php
                                 }

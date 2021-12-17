@@ -7,6 +7,21 @@ $inmateId = $_GET["id"];
     <!-- /.content-header -->
     <section class="content">
         <div class="container-fluid">
+        <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0"><?php 
+            $inmateName = getThis("SELECT `firstName`, `lastName` FROM `inmatedetails` WHERE `id`='$inmateId'");
+            $inmateName = $inmateName[0];
+            echo e_d('d',$inmateName['firstName'])." ".e_d('d',$inmateName['lastName']);
+          ?> Dashboard</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
             <div class="row">
                 <!-- left column -->
                 <div class="col-md-12">
@@ -49,6 +64,9 @@ $inmateId = $_GET["id"];
                                 <button type="submit" class="btn btn-primary btn-block">Submit</button>
                             </div>
                         </form>
+                        <div class="card-footer">
+                        <a href="http://127.0.0.1:5000/inmaterecognition" class="btn btn-danger btn-block">Scan face again</a>
+                        </div>
                     </div>
                 </div>
             </div>

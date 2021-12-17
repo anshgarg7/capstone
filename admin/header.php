@@ -144,7 +144,7 @@ $result = $result[0];
               <a href="movementmanagement.php" class="nav-link">
                 <i class="nav-icon fas fa-th"></i>
                 <p>
-                  Inmate Movement Management
+                  Inmate Movement 
                 </p>
               </a>
             </li>

@@ -10,7 +10,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                        <li class="breadcrumb-item active">Barrack Management</li>
+                        <li class="breadcrumb-item active">Parole Management</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -25,24 +25,37 @@
                     <!-- general form elements -->
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Register New Barrack</h3>
+                            <h3 class="card-title">Register New Bail Entry</h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form action="assets/functionality/addBarrackAct.php" method="POST">
+                        <form action="assets/functionality/addNewBailAct.php" method="POST">
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Barrack Name/Number</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" name="barrackName" placeholder="Barrack 101">
+                                    <label for="exampleInputEmail1">Inmate Name</label>
+                                    <select name="inmateId" class="form-control">
+                                        <?php
+                                        $jailID = 1;
+                                        $inmates = getThis("SELECT `id`, `firstName`, `lastName` FROM `inmatedetails` WHERE `jailID`='$jailID'");
+                                        for ($i = 0; $i < sizeof($inmates); $i++) {
+                                            $inmate = $inmates[$i];
+                                            $inmateId = $inmate['id'];
+                                        ?>
+                                            <option value="<?php echo $inmateId; ?>"><?php echo e_d('d', $inmate['firstName']) . " " . e_d('d', $inmate['lastName']); ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">Barrack Location</label>
-                                    <input type="text" class="form-control" id="exampleInputPassword1" name="barrackLocation" placeholder="First Floor, Wing A">
+                                    <label for="exampleInputPassword1">Date Of Bail</label>
+                                    <input type="date" class="form-control" id="exampleInputPassword1" name="dateOfBail">
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">Total Capacity</label>
-                                    <input type="number" class="form-control" name="totalCapacity" id="exampleInputPassword1">
+                                    <label for="exampleInputPassword1">Date Of Court Order</label>
+                                    <input type="date" class="form-control" id="exampleInputPassword1" name="dateOfOrder">
                                 </div>
+                                
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer">
