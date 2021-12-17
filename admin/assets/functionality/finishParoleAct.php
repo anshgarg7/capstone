@@ -2,7 +2,6 @@
 $id = $_GET["id"];
 $id = e_d('d', $id);
 
-
 $res = doThis("UPDATE `parolemanagement` SET `updatedAt`= CURRENT_TIMESTAMP,`paroleRequestStatus`='2' WHERE `id`='$id'");
 if($res)
 {

@@ -77,7 +77,7 @@
                                         <td><?php echo  e_d('d', $inmate['dateOfParole']); ?></td>
                                         <td><?php echo e_d('d', $inmate['durationOfParole']); ?></td>
                                         <td><a href="inmateDetails.php?id=<?php echo e_d('e',$inmateID);?>" class="btn btn-primary">View Details</a>
-                                        <a href="assets/functionality/finishParoleAct.php?id=<?php echo e_d('e',$inmateID);?>" class="btn btn-primary">Returned</a>
+                                        <a href="assets/functionality/finishParoleAct.php?id=<?php $temp = $inmate['id']; echo e_d('e',$temp);?>" class="btn btn-primary">Returned</a>
                                     </td>
                                     </tr>
                                 <?php
