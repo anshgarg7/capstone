@@ -51,7 +51,7 @@
                             <tbody>
                                 <?php
                                 $jailId = 1;
-                                $inmates = getThis("SELECT `id`, `barrackId`, `firstName`, `lastName`, `idProofNumber` FROM `inmatedetails` WHERE `jailId`='$jailId' AND `enabled`='1'");
+                                $inmates = getThis("SELECT `id`, `barrackId`, `firstName`, `lastName`, `idProofNumber` FROM `inmatedetails` WHERE `jailId`='$jailId' AND `enabled`='1' OR `enabled`='2'");
                                 for ($i = 0; $i < sizeof($inmates); $i++) {
                                 ?>
                                     <tr>
